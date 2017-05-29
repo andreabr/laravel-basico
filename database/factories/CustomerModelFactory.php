@@ -13,5 +13,4 @@ $factory->define(\Charlie\Customer::class, function (Faker\Generator $faker) {
 	];
 
 
-
 });
