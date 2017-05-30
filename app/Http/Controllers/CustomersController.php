@@ -61,7 +61,10 @@ class CustomersController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        return view('customers.edit');
+
+        $customersForSelect = Customer::groupBy('state')->get(['state'])->pluck('state', 'state');
+
+        return view('customers.edit')->with(compact('customer', 'customersForSelect'));
     }
 
     /**

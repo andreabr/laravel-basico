@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
 @section('page-title')
-Editar cliente
+	Criar novo cliente
 @stop
 
 
 
 @section('content')
 
-{!! Form::model($customer, ['url' => 'foo/bar']) !!}
+{!! Form::open(['url' => 'foo/bar']) !!}
 
 	@include('customers.partials.form')
 
