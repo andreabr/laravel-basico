@@ -5,6 +5,7 @@ namespace Charlie\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Charlie\Customer;
+use Charlie\Http\Requests\CustomerFormRequest;
 
 class CustomersController extends Controller
 {
@@ -27,7 +28,7 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -38,7 +39,7 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -74,9 +75,19 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerFormRequest $request, $id)
     {
-        //
+
+        $input = $request->only('name', "special_customer", 'city', 'state');
+        $input['special_customer'] = isset($input['special_customer']);
+
+        $customer = Customer::find($id);
+        $customer->fill($input);
+        $customer->save();
+
+        return redirect()
+            ->route('clientes.edit', $id)
+            ->with(['success' => "Cliente salvo com sucesso!"]);
     }
 
     /**

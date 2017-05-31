@@ -4,13 +4,31 @@
 Editar cliente
 @stop
 
-
-
 @section('content')
 
-{!! Form::model($customer, ['url' => 'foo/bar']) !!}
+@if(count($errors->all()) > 0)
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
-	@include('customers.partials.form')
+@if(Session::has('success'))
+
+<div class="alert alert-success">
+    {{ (Session::get('success')) }}
+</div>
+
+@endif
+
+{!! Form::model($customer, ['route' => ['clientes.update', $customer->id]]) !!}
+
+<input type="hidden" name="_method" value="PUT">
+
+@include('customers.partials.form')
 
 {!! Form::close() !!}
 
